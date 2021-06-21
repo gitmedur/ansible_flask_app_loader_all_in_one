@@ -59,16 +59,9 @@
         # role_attr_flags: "{{ __user.role_attr_flags | default(omit) }}"
         state: "{{ __user.state | default('present') }}"
       loop: "{{ postgres_users }}"
-          loop_control:
-            loop_var: __user
+        loop_control:
+          loop_var: __user
           no_log: "{{ postgres_user_no_log_state | default(false) }}" 
 
 
       become_user: "{{ postgres_user }}"
-
-  handlers:
-
-    - name: restart_postgres
-      service:
-        name: "{{ postgres_service }}"
-        state: restarted
